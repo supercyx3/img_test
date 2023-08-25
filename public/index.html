@@ -9,10 +9,10 @@
 </head>
 <body>
 <div id="root"></div>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script crossorigin="anonymous" defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+<script src="./babel.min.js"></script>
+<script crossorigin="anonymous" defer src="./katex.min.js"></script>
 <script crossorigin="anonymous" defer onload="renderMathInElement(document.body, {output: 'mathml'})"
-        src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js"></script>
+        src="./auto-render.min.js"></script>
 <script data-type="module" type="text/babel">
     import React from 'https://cdn.skypack.dev/react?min'
     import ReactDOM from 'https://cdn.skypack.dev/react-dom?min'
@@ -422,11 +422,13 @@
 	    setResponding(true);
             let image_uri = "";
             let file = event.target.files[0];
-            image_uri = await resizeFile(file, "base64");
-            if (image_uri.split(",")[1].length /1024 > 1024) {
-                 throw Error("Picture too large.");
+            if (file){
+                image_uri = await resizeFile(file, "base64");
+                if (image_uri.split(",")[1].length /1024 > 1024) {
+                     throw Error("Picture too large.");
+                }
+                setImageInput(image_uri)
             }
-            setImageInput(image_uri)
 	    setResponding(false);
         }
         const appendMessage = message => {
